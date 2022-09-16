@@ -32,12 +32,14 @@ class Index extends Component
         //dd(scandir(app_path('./../' . $this->root)));
 
         //dump($this->navigation);
-        //dd($this->folder_list);
+
     }
 
     public function render()
     {
         $this->navigation = $this->scandirFolder('./../' . $this->root);
+
+        //dump($this->folder_list);
 
         return view('documentation::livewire.docs.index')->layout('component::layouts.dashboard');
     }
@@ -62,7 +64,11 @@ class Index extends Component
             unlink($directory);
         } catch (Exception $e) {
             dd($e);
+            // TODO: flash message
+            // File konte nicht gelöscht werden.
         }
+        // TODO: flash message
+        // File wurde gelöscht
     }
 
     public function deleteFolder(string $directory)
@@ -71,7 +77,11 @@ class Index extends Component
             rmdir($directory);
         } catch (Exception $e) {
             dd($e);
+
+            // TODO: flash message
+            // Ordner ist nicht leer
         }
+        // TODO: Ordner wurde gelöscht
     }
 
     public function createNewFolder()

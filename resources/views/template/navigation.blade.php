@@ -1,11 +1,21 @@
-<ul class="{{ isset($type) && $type == 'children' ? 'ml-3' : 'py-3' }}">
+<ul class="{{ isset($type) && $type == 'children' ? 'ml-3' : 'py-3' }}"
+    {{ isset($type) && $type == 'children' ? 'x-cloak x-show=open' : '' }}>
     @foreach ($navigation as $element)
         @if ($element['type'] == 'folder')
-            <li class="">
+            <li {{ isset($element['data']) && !empty($element['data']) ? 'x-data={open:false}' : '' }}>
                 <div class="flex justify-between group">
-                    <span class="flex items-center gap-1 my-3 font-bold tracking-wider text-gray-400 uppercase">
-                        <x-icon.folder />{{ $element['title'] }}
-                    </span>
+
+                    @if (isset($element['data']) && !empty($element['data']))
+                        <button @click.prevent="open = ! open" type="button"
+                            class="flex items-center gap-1 my-3 font-bold tracking-wider text-gray-400 uppercase cursor-pointer">
+                            <x-icon.folder />{{ $element['title'] }}
+                        </button>
+                    @else
+                        <span class="flex items-center gap-1 my-3 font-bold tracking-wider text-gray-400 uppercase">
+                            <x-icon.folder />{{ $element['title'] }}
+                        </span>
+                    @endif
+
                     <button wire:click="deleteFolder('{{ $element['path'] }}')" type="button"
                         class="hidden text-gray-400 hover:text-red-500 group-hover:flex">
                         <x:component::icon.delete />
