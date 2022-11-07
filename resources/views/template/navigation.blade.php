@@ -8,11 +8,11 @@
                     @if (isset($element['data']) && !empty($element['data']))
                         <button @click.prevent="open = ! open" type="button"
                             class="flex items-center gap-1 my-3 font-bold tracking-wider text-gray-400 uppercase cursor-pointer">
-                            <x-icon.folder />{{ $element['title'] }}
+                            <x:component::icon.folder />{{ $element['title'] }}
                         </button>
                     @else
                         <span class="flex items-center gap-1 my-3 font-bold tracking-wider text-gray-400 uppercase">
-                            <x-icon.folder />{{ $element['title'] }}
+                            <x:component::icon.folder />{{ $element['title'] }}
                         </span>
                     @endif
 
@@ -32,7 +32,7 @@
         @else
             <li class="flex justify-between gap-2 py-3 text-gray-500 cursor-pointer hover:text-teal-500 group">
                 <button wire:click="select('{{ $element['path'] }}')" type="button" class="flex items-center gap-1 ">
-                    <x-icon.file />{{ $element['title'] }}
+                    <x:component::icon.file />{{ $element['title'] }}
                 </button>
                 <button wire:click="deleteFile('{{ $element['path'] }}')" type="button"
                     class="hidden text-gray-400 hover:text-red-500 group-hover:flex">

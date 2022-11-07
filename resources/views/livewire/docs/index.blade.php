@@ -10,11 +10,11 @@
             <div class="w-3/12 bg-gray-200 px-7 py-7">
                 <div class="flex justify-end gap-2">
                     <a href="{{ route('package.docs.create') }}" class="text-gray-400 hover:text-primary-500">
-                        <x-icon.file />
+                        <x:component::icon.file />
                     </a>
 
                     <button @click.prevent="open = true" type="button" class="text-gray-400 hover:text-primary-500">
-                        <x-icon.folder />
+                        <x:component::icon.folder />
                     </button>
                 </div>
                 <nav class="">
@@ -75,3 +75,9 @@
         </div>
     </div>
 </div>
+
+
+@push('styles')
+    Hallo welt
+    <link rel="stylesheet" href="{{ asset('../../packa/css/docs.css') }}">
+@endpush
