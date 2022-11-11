@@ -1,3 +1,10 @@
+## Route
+
+`````php
+route('package.docs.index')
+```
+
+
 ````bash
 composer require reinholdjesse/documentation
 ```
@@ -7,4 +14,4 @@ composer require reinholdjesse/documentation
 php artisan vendor:publish --tag=documentation.install
 
 ```
-````
+`````
