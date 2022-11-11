@@ -12,5 +12,17 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "reinholdjesse/core": "dev-main"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Reinholdjesse\\Documentation\\DocumentationServiceProvider"
+            ]
+        }
+    }
 }
