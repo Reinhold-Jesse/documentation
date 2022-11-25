@@ -5,9 +5,12 @@ namespace Reinholdjesse\Documentation\Livewire\Docs;
 use Exception;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Reinholdjesse\Core\Traits\addLivewireControlleFunctions;
 
 class Create extends Component
 {
+    use addLivewireControlleFunctions;
+
     public $root = './../docs/';
 
     public $content;
@@ -50,14 +53,12 @@ class Create extends Component
 
         if (isset($headline) && !empty($headline) && $this->createMarkdownFile(Str::slug(trim($headline)))) {
             // datei erstellt
-            // TODO: flash message
-            //dd('datei erstellt');
+            $this->bannerMessage('success', 'Datei wurde erfolgreich erstellt');
             return redirect()->route('package.docs.index');
         } else {
             // datei kann nicht erstellt werden.
-            // TODO: flash message
+            $this->bannerMessage('danger', 'Fehler beim erstellen der Datei.');
         }
-
     }
 
     private function scandirFolder(string $directory)

@@ -4,9 +4,12 @@ namespace Reinholdjesse\Documentation\Livewire\Docs;
 
 use Exception;
 use Livewire\Component;
+use Reinholdjesse\Core\Traits\addLivewireControlleFunctions;
 
 class Edit extends Component
 {
+
+    use addLivewireControlleFunctions;
 
     public $root = './../docs/';
 
@@ -37,11 +40,10 @@ class Edit extends Component
     {
 
         if ($this->createMarkdownFile()) {
-            // TODO: flash message
-            // datei gespeichert
+            $this->bannerMessage('success', 'Datei wurde erfolgreich erstellt');
             return redirect()->route('package.docs.index');
         } else {
-            // TODO: flash message
+            $this->bannerMessage('danger', 'Fehler beim erstellen der Datei.');
         }
     }
 

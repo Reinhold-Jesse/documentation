@@ -6,9 +6,12 @@ use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Reinholdjesse\Core\Traits\addLivewireControlleFunctions;
 
 class Index extends Component
 {
+    use addLivewireControlleFunctions;
+
     public $root = 'docs';
 
     public $navigation;
@@ -28,26 +31,16 @@ class Index extends Component
         if (!file_exists(base_path($this->root))) {
             mkdir(base_path($this->root));
         }
-
-        //dd(scandir(app_path('./../' . $this->root)));
-
-        //dump($this->navigation);
-
     }
 
     public function render()
     {
         $this->navigation = $this->scandirFolder('./../' . $this->root);
-
-        //dump($this->folder_list);
-
         return view('documentation::livewire.docs.index')->layout('component::layouts.dashboard');
     }
 
     public function select(string $directory)
     {
-        //dd($directory);
-
         $this->select_file = $file['edit'] = str_replace('./../docs/', '', $directory);
 
         try {
@@ -55,7 +48,6 @@ class Index extends Component
         } catch (Exception $e) {
             dd($e);
         }
-
     }
 
     public function deleteFile(string $directory)
@@ -64,11 +56,11 @@ class Index extends Component
             unlink($directory);
         } catch (Exception $e) {
             dd($e);
-            // TODO: flash message
             // File konte nicht gelöscht werden.
+            $this->bannerMessage('danger', 'Fehler beim löschen der Datei.');
         }
-        // TODO: flash message
         // File wurde gelöscht
+        $this->bannerMessage('success', 'Datei wurde erfolgreich gelöscht');
     }
 
     public function deleteFolder(string $directory)
@@ -77,11 +69,11 @@ class Index extends Component
             rmdir($directory);
         } catch (Exception $e) {
             dd($e);
-
-            // TODO: flash message
             // Ordner ist nicht leer
+            $this->bannerMessage('danger', 'Ordner ist nicht leer');
         }
-        // TODO: Ordner wurde gelöscht
+        // Ordner wurde gelöscht
+        $this->bannerMessage('success', 'Ordner wurde gelöscht');
     }
 
     public function createNewFolder()
@@ -109,7 +101,7 @@ class Index extends Component
 
                 $this->emit('render');
 
-                // TODO:flash message folder created
+                $this->bannerMessage('success', 'Ordner wurde erstellt');
             } else {
                 dd('wurde gefunden');
                 // TODO: flash message
